@@ -1,9 +1,19 @@
 require 'spec_helper'
 
 describe 'docker::default' do
-  # Serverspec examples can be found at
-  # http://serverspec.org/resource_types.html
-  it 'does something' do
-    skip 'Replace this with meaningful tests'
+  describe package('docker-engine') do
+    it 'is installed' do
+      expect(subject).to be_installed
+    end
+  end
+
+  describe service('docker') do
+    it 'is enabled' do
+      expect(subject).to be_enabled
+    end
+
+    it 'is running' do
+      expect(subject).to be_running
+    end
   end
 end

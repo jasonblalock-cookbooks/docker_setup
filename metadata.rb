@@ -5,3 +5,5 @@ license 'all_rights'
 description 'Installs/Configures docker'
 long_description 'Installs/Configures docker'
 version '0.1.0'
+
+depends 'apt'
