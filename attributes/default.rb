@@ -12,6 +12,8 @@ when '14.04'
   'trusty'
 when '16.04'
   'xenial'
+when '16.10'
+  'yakkety'
 end
 
 default['docker']['repository']['uri'] = 'https://apt.dockerproject.org/repo'
