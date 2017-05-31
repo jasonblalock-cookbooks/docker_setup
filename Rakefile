@@ -5,13 +5,38 @@
 # Available Rake tasks:
 #
 # $ rake -T
+# rake clean                               # Clean some generated files
+# rake integration[regexp,action]          # Run Test Kitchen integration tests
 # rake integration:docker[regexp,action]   # Run tests with kitchen-docker
 # rake integration:vagrant[regexp,action]  # Run tests with kitchen-vagrant
 #
 # More info at https://github.com/ruby/rake/blob/master/doc/rakefile.rdoc
 #
 
+# Checks if we are inside a Continuous Integration machine.
+#
+# @return [Boolean] whether we are inside a CI.
+# @example
+#   ci? #=> false
+def ci?
+  ENV['CI'] == 'true'
+end
+
 require 'bundler/setup'
+
+desc 'Clean some generated files'
+task :clean do
+  %w(
+    Berksfile.lock
+    .bundle
+    .cache
+    coverage
+    Gemfile.lock
+    .kitchen
+    metadata.json
+    vendor
+  ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
+end
 
 desc 'Run Test Kitchen integration tests'
 namespace :integration do
@@ -50,5 +75,9 @@ namespace :integration do
     run_kitchen(args.action, args.regexp, local_config: '.kitchen.docker.yml')
   end
 end
+
+desc 'Run Test Kitchen integration tests'
+task :integration, [:regexp, :action] =>
+  ci? ? %w(integration:docker) : %w(integration:vagrant)
 
 task default: %w(integration:docker)
