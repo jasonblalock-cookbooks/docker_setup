@@ -1,0 +1,7 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+  provision_command:
+    - apt-get install apt-transport-https
+    - curl -L https://www.chef.io/chef/install.sh | bash
