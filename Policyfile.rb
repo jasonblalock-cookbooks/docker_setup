@@ -10,8 +10,7 @@ name "docker_setup"
 default_source :supermarket
 
 # run_list: chef-client will run these recipes in the order specified.
-run_list 'docker_setup::default'
+run_list %w(docker_setup::default docker_setup::docker_compose)
 
 # Specify a custom source for a single cookbook:
 cookbook "docker_setup", path: "."
-# cookbook 'chef-apt-docker', '~> 1.1.1'
