@@ -15,8 +15,8 @@ describe package 'docker-engine' do
 end
 
 describe docker.version do
-  its('Client.Version') { should match(/^17.04/) }
-  its('Server.Version') { should match(/^17.04/) }
+  its('Client.Version') { should match(/^17.05/) }
+  its('Server.Version') { should match(/^17.05/) }
 end
 
 describe service('docker') do
